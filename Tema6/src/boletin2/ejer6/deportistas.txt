@@ -1,0 +1,5 @@
+Nombre						Edad	Peso	Estatura
+Juan Pedro Pérez Gómez	25	70.5	1.80
+Ana Ruíz de Val	23	60	1.75
+Jose María	30	80	1.85
+María	36	70	1.70
