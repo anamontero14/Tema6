@@ -31,6 +31,8 @@ public class CodificarFichero {
 		String lineaCodificada = "";
 		// almacenar la linea
 		String linea = "";
+		// variable auxiliar
+		int posLetra;
 
 		// llamo a la funcion para leer los alfabetos
 		leerAlfabetos();
@@ -52,13 +54,24 @@ public class CodificarFichero {
 
 				// recorro el array del la linea sin codificar
 				for (int i = 0; i < lineaFichero.length; i++) {
-					// recorro el alfabeto sin codificar
-					for (int j = 0; j < alfabetoCodificado.length; j++) {
-						
-						if (lineaFichero[i] == alfabetoCodificado[j]) {
-							
+					// recorro el alfabeto normal
+					for (int j = 0; j < alfabeto.length; j++) {
+						if (lineaFichero[i] == alfabeto[j]) {
+							// si la letra del abecedario es la misma que la de la frase almaceno la
+							// posicion de la letra en la variable
+							posLetra = j;
+
+							// recorro el array del alfabeto codificado
+							for (int x = 0; x < alfabetoCodificado.length; x++) {
+
+								if (lineaFichero[i] == ' ') {
+									lineaCodificada += " ";
+								} else {
+									lineaCodificada += alfabetoCodificado[posLetra];
+								}
+
+							}
 						}
-						
 					}
 				}
 
