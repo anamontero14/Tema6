@@ -1,8 +1,10 @@
 package boletin2.ejer4;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class CodificarFichero {
@@ -10,7 +12,8 @@ public class CodificarFichero {
 	static char alfabeto[];
 	static char alfabetoCodificado[];
 	// almacenar la ruta de el código
-	static final String CODIGO_CODIFICACION = "src\\boletin2\\ejer4\\codec.txt";
+	static final String CODIGO_CODIFICACION = "C:\\Users\\USUARIO\\git\\Tema6\\Tema6\\src\\boletin2\\ejer4\\codec.txt";
+	static final String FICHERO_ESCRIBIR_CODIGO = "C:\\Users\\USUARIO\\git\\Tema6\\Tema6\\src\\boletin2\\ejer4\\ficheroCodificado.txt";
 
 	public static void main(String[] args) {
 		/*
@@ -39,15 +42,12 @@ public class CodificarFichero {
 
 		// una vez tengo los alfabetos leo el fichero a codificar
 		try (BufferedReader leerFichero = new BufferedReader(
-				new FileReader("src\\boletin2\\ejer4\\ficheroCodificar.txt"))) {
+				new FileReader("C:\\Users\\USUARIO\\git\\Tema6\\Tema6\\src\\boletin2\\ejer4\\ficheroCodificar.txt"))) {
 
 			// leer la linea
 			linea = leerFichero.readLine();
 
 			while (linea != null) {
-
-				// paso de linea
-				linea = leerFichero.readLine();
 
 				// almaceno la linea el el array
 				lineaFichero = linea.toCharArray();
@@ -63,17 +63,27 @@ public class CodificarFichero {
 
 							// recorro el array del alfabeto codificado
 							for (int x = 0; x < alfabetoCodificado.length; x++) {
-
-								if (lineaFichero[i] == ' ') {
-									lineaCodificada += " ";
-								} else {
+								// si la posicion de la letra es la misma que la que se esta recorriendo
+								if (posLetra == x) {
+									// se añade la letra codificada que este en el mismo lugar que la otra letra
 									lineaCodificada += alfabetoCodificado[posLetra];
+
 								}
 
 							}
+							// si la letra no es igual a la del alfabeto pero es igual a un espacio
+						} else if (lineaFichero[i] == ' ') {
+							// se añade a la linea codificada
+							lineaCodificada += " ";
 						}
 					}
 				}
+
+				// escribo la linea codificada
+				escribirLinea(lineaCodificada);
+
+				// paso de linea
+				linea = leerFichero.readLine();
 
 			}
 
@@ -82,6 +92,8 @@ public class CodificarFichero {
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
 		}
+
+		System.out.println("Fin del programa");
 
 	}
 
@@ -118,6 +130,23 @@ public class CodificarFichero {
 			System.err.println("Error: " + e.getMessage());
 		}
 
+	}
+
+	private static boolean escribirLinea(String lineaAEscribir) {
+		boolean sePudo = true;
+
+		try (BufferedWriter escribirFichero = new BufferedWriter(new FileWriter(FICHERO_ESCRIBIR_CODIGO, true))) {
+
+			// escribir la linea que llega en el fichero
+			escribirFichero.write(lineaAEscribir);
+			escribirFichero.newLine();
+
+		} catch (IOException e) {
+			sePudo = false;
+			System.err.println("No se pudo abrir el fichero " + e.getMessage());
+		}
+
+		return sePudo;
 	}
 
 }
